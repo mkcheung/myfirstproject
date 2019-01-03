@@ -4,12 +4,9 @@
     	<title>Laravel</title>
     </head>
     <body>
-    	@yield('content')
+    	<div class="container">
+    		@yield('content')
+    	</div>
 
-    	<ul>
-    			<li><a href="/about">About Us</a></li>
-    			<li><a href="/contact">Contact</a></li>
-
-    	</ul>
     </body>
 </html>

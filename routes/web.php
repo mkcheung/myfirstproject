@@ -13,6 +13,8 @@
 
 use Illuminate\Filesystem\Filesystem;
 
+use App\Repositories\UserRepository;
+
 // app()->bind('example', function (){
 // 	return new \App\Example;
 // });
@@ -22,16 +24,14 @@ app()->singleton('example', function (){
 	return new \App\Example;
 });
 
-app()->singleton('App\Services\Twitter', function (){
-	return new \App\Services\Twitter('adaafdsaasd');
-});
-
 Route::get('/', 'PagesController@home');
-// Route::get('/', function(){
+// Route::get('/', function(UserRepository $users){
+// 	dd($users);
 // 	//demonstrate service container utiliztion
 // 	// app(Filesystem::class);
 // 	// dd(app('example'), app('example'));
-// 	return view('welcome');
+// 	// return view('welcome');
+
 // });
 Route::get('/about', 'PagesController@about');
 Route::get('/contact', 'PagesController@contact');

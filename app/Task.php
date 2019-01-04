@@ -9,9 +9,15 @@ class Task extends Model
 
 	protected $guarded = [];
 
-	public function complete($completed = true){
+	public function complete(){
 		$this->update([
-			'completed' => $completed 
+			'completed' => true 
+		]);
+	}
+
+	public function incomplete(){
+		$this->update([
+			'completed' => false 
 		]);
 	}
 

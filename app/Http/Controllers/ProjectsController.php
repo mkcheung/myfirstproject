@@ -8,8 +8,15 @@ use App\Services\Twitter;
 
 class ProjectsController extends Controller
 {
+
+    public function __construct(){
+        //except and only can constrain the range to which this applies
+        $this->middleware('auth');
+    }
+
     public function index(){
-    	$projects = Project::all();
+        // $projects = Project::all();
+        $projects = Project::where('owner_id', auth()->id())->get();
 
     	return view('projects.index', [
     		'projects' => $projects
@@ -52,10 +59,10 @@ class ProjectsController extends Controller
     	
     	$attributes = request()->validate([
     		'title' => ['required','min:3', 'max:255'],
-    		'description' => ['required','min:3'],
-    		'password' => ['required', 'confirmed']
+    		'description' => ['required','min:3']
     	]);
 
+        $attributes['owner_id'] = auth()->id();
     	Project::create($attributes);
 
     	return redirect('/projects');

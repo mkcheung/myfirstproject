@@ -29,7 +29,8 @@ class ProjectsController extends Controller
 
     public function show(Project $project, Twitter $twitter){
     	
-        dd($twitter);
+        // abort_if($project->owner_id !== auth()->id(), 403);
+        $this->authorize('update', $project);
     	return view('projects.show', compact('project'));
     }
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Project;
 use App\Services\Twitter;
+use App\Mail\ProjectCreated;
+use Mail;
 
 class ProjectsController extends Controller
 {
@@ -66,7 +68,10 @@ class ProjectsController extends Controller
     	$attributes = $this->validateProject();
 
         $attributes['owner_id'] = auth()->id();
-    	Project::create($attributes);
+    	$project = Project::create($attributes);
+
+        Mail::to($project->owner->email)->send(new ProjectCreated($project)
+        );
 
     	return redirect('/projects');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Project;
 use App\Services\Twitter;
+use App\Events\ProjectCreated;
 use App\Mail\ProjectCreated;
 use Mail;
 
@@ -65,10 +66,14 @@ class ProjectsController extends Controller
     }
 
     public function store(){
+
     	$attributes = $this->validateProject();
 
         $attributes['owner_id'] = auth()->id();
+        
     	$project = Project::create($attributes);
+
+        event(new ProjectCreated($project));
 
     	return redirect('/projects');
     }

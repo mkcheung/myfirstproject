@@ -2,29 +2,21 @@
 
 namespace App;
 
-use App\Mail\ProjectCreated;
+use App\Events\ProjectCreated;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
     protected $fillable = [
-    	'owner_id',
-    	'title',
-    	'description'
+        'owner_id',
+        'title',
+        'description'
     ];
 
-    // instantiate event upon project creation
-    protected static function boot(){
-        parent::boot();
-
-        static::created(function($project){
-
-
-            Mail::to($project->owner->email)->send(new ProjectCreated($project)
-            );
-        });
-    }
+    // protected $dispatchesEvents = [
+    //     'created' => ProjectCreated::class
+    // ];
 
     public function owner(){
         return $this->belongsTo(User::class);

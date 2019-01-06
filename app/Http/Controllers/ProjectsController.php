@@ -73,8 +73,6 @@ class ProjectsController extends Controller
         
     	$project = Project::create($attributes);
 
-        event(new ProjectCreated($project));
-
     	return redirect('/projects');
     }
 }

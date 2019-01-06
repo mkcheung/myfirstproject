@@ -14,9 +14,9 @@ class Project extends Model
         'description'
     ];
 
-    // protected $dispatchesEvents = [
-    //     'created' => ProjectCreated::class
-    // ];
+    protected $dispatchesEvents = [
+        'created' => ProjectCreated::class
+    ];
 
     public function owner(){
         return $this->belongsTo(User::class);
